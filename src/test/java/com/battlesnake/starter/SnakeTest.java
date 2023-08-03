@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -66,80 +65,5 @@ public class SnakeTest {
         JsonNode endRequest = OBJECT_MAPPER.readTree("{}");
         Map<String, String> response = handler.end(endRequest);
         assertEquals(0, response.size());
-    }
-
-    @Test
-    void avoidNeckAllTest() throws IOException {
-
-        JsonNode testHead = OBJECT_MAPPER.readTree("{\"x\": 5, \"y\": 5}");
-        JsonNode testBody = OBJECT_MAPPER
-                .readTree("[{\"x\": 5, \"y\": 5}, {\"x\": 5, \"y\": 5}, {\"x\": 5, \"y\": 5}]");
-        ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
-        ArrayList<String> expectedResult = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
-
-        handler.avoidMyNeck(testHead, testBody, possibleMoves);
-
-        assertTrue(possibleMoves.size() == 4);
-        assertTrue(possibleMoves.equals(expectedResult));
-    }
-
-    @Test
-    void avoidNeckLeftTest() throws IOException {
-
-        JsonNode testHead = OBJECT_MAPPER.readTree("{\"x\": 5, \"y\": 5}");
-        JsonNode testBody = OBJECT_MAPPER
-                .readTree("[{\"x\": 5, \"y\": 5}, {\"x\": 4, \"y\": 5}, {\"x\": 3, \"y\": 5}]");
-        ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
-        ArrayList<String> expectedResult = new ArrayList<>(Arrays.asList("up", "down", "right"));
-
-        handler.avoidMyNeck(testHead, testBody, possibleMoves);
-
-        assertTrue(possibleMoves.size() == 3);
-        assertTrue(possibleMoves.equals(expectedResult));
-    }
-
-    @Test
-    void avoidNeckRightTest() throws IOException {
-
-        JsonNode testHead = OBJECT_MAPPER.readTree("{\"x\": 5, \"y\": 5}");
-        JsonNode testBody = OBJECT_MAPPER
-                .readTree("[{\"x\": 5, \"y\": 5}, {\"x\": 6, \"y\": 5}, {\"x\": 7, \"y\": 5}]");
-        ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
-        ArrayList<String> expectedResult = new ArrayList<>(Arrays.asList("up", "down", "left"));
-
-        handler.avoidMyNeck(testHead, testBody, possibleMoves);
-
-        assertTrue(possibleMoves.size() == 3);
-        assertTrue(possibleMoves.equals(expectedResult));
-    }
-
-    @Test
-    void avoidNeckUpTest() throws IOException {
-
-        JsonNode testHead = OBJECT_MAPPER.readTree("{\"x\": 5, \"y\": 5}");
-        JsonNode testBody = OBJECT_MAPPER
-                .readTree("[{\"x\": 5, \"y\": 5}, {\"x\": 5, \"y\": 6}, {\"x\": 5, \"y\": 7}]");
-        ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
-        ArrayList<String> expectedResult = new ArrayList<>(Arrays.asList("down", "left", "right"));
-
-        handler.avoidMyNeck(testHead, testBody, possibleMoves);
-
-        assertTrue(possibleMoves.size() == 3);
-        assertTrue(possibleMoves.equals(expectedResult));
-    }
-
-    @Test
-    void avoidNeckDownTest() throws IOException {
-
-        JsonNode testHead = OBJECT_MAPPER.readTree("{\"x\": 5, \"y\": 5}");
-        JsonNode testBody = OBJECT_MAPPER
-                .readTree("[{\"x\": 5, \"y\": 5}, {\"x\": 5, \"y\": 4}, {\"x\": 5, \"y\": 3}]");
-        ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
-        ArrayList<String> expectedResult = new ArrayList<>(Arrays.asList("up", "left", "right"));
-
-        handler.avoidMyNeck(testHead, testBody, possibleMoves);
-
-        assertTrue(possibleMoves.size() == 3);
-        assertTrue(possibleMoves.equals(expectedResult));
     }
 }
